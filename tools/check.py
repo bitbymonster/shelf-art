@@ -42,8 +42,6 @@ def check_one(dirpath, f):
             w, h = im.size
     except Exception as e:  # noqa: BLE001  (whatever Pillow says)
         return errs + ['cannot be read as a picture (%s)' % e.__class__.__name__], warns
-    if w < 144 or h < 72:
-        warns.append('only %dx%d: it will be scaled to 72x36 and may look soft' % (w, h))
     if not 1.8 <= w / h <= 2.2:
         warns.append('%dx%d is not 2:1: a 2:1 band is cut from it (top by default)' % (w, h))
     return errs, warns
