@@ -17,7 +17,7 @@ jobs:
           path: out
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
-      - name: Post the report (the artifact is data from a fork: only its text is used)
+      - name: Post the report (the artifact came from a fork, so only its text is used)
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
