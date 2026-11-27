@@ -1,0 +1,29 @@
+name: Comment on pull request
+on:
+  workflow_run:
+    workflows: ['Check pictures']
+    types: [completed]
+permissions:
+  pull-requests: write
+  actions: read
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.event == 'pull_request'
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: picture-check
+          path: out
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+      - name: Post the report (the artifact is data from a fork: only its text is used)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN: ${{ github.event.workflow_run.html_url }}
+        run: |
+          pr=$(tr -dc '0-9' < out/pr)
+          [ -n "$pr" ] || exit 1
+          { cat out/report.md; echo; echo "The pictures as Shelf will show them (thumbnails beside the originals): [download the preview from the run]($RUN) (\"picture-check\", at the bottom)."; } > body.md
+          gh pr comment "$pr" --edit-last --create-if-none --body-file body.md

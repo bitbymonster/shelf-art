@@ -1,0 +1,35 @@
+name: Check pictures
+# Runs on pull requests, from forks too: read-only, no secrets. The comment is posted by comment.yml, which never runs the PR's code.
+on:
+  pull_request:
+    paths: ['pictures/**', 'tools/**']
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install pillow
+      - name: Check the pictures this PR adds or changes
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          mkdir -p out
+          echo "$PR" > out/pr
+          git diff --name-only --diff-filter=AM -z "$BASE" HEAD -- pictures > changed.txt
+          set +e
+          xargs -0 python3 tools/check.py pictures --out out --changed < changed.txt
+          echo $? > status
+          set -e
+          cat out/report.md >> "$GITHUB_STEP_SUMMARY"
+          exit "$(cat status)"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: picture-check
+          path: out
