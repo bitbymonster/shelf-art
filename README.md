@@ -7,8 +7,8 @@ the game's title; the pictures are here in a convenient form and a build turns t
 
 1. Put a picture in `pictures/` named after the game: `pictures/Manic Miner.png` (PNG, BMP, GIF or JPG, under 500 KB).
    On the web: *Add file > Upload files* in `pictures/` makes the pull request for you.
-2. Choose a screenshot of the game itself, about twice as wide as tall. Shelf shows 72x36 pixels, so detail does not matter;
-   a recognisable scene does. A title card, a publisher's logo or a loading screen is rarely much use.
+2. Choose a title card or a screenshot of the game itself, about twice as wide as tall. Shelf shows 72x36 pixels, so detail does
+   not matter; a recognisable scene does. A publisher's logo or ident is not much use.
 3. Open the pull request. A check lists any problem and shows what Shelf will make of it. Fill in the template's questions.
 
 Names do not have to match exactly: `Manic Miner`, `ManicMiner` and `manic_miner` are the same game to Shelf (only letters and digits

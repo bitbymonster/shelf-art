@@ -4,4 +4,4 @@
 
 - [ ] It is a screenshot I took, or I have permission to share it
 - [ ] The file is in `pictures/`, named after the game, and is a PNG, BMP, GIF or JPG under 500 KB
-- [ ] It is roughly 2:1 (twice as wide as tall), showing the game rather than a title card, publisher logo or loading screen
+- [ ] It is roughly 2:1 (twice as wide as tall), showing the game (a title card is welcome; a publisher's logo or ident is not)
